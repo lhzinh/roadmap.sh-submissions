@@ -5,6 +5,7 @@ on:
     branches: ["github-pages-deployment"]
     paths:
       - 'gh-deployment-workflow/**'
+  workflow_dispatch:
 
 permissions:
   contents: read
