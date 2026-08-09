@@ -38,3 +38,5 @@ After finishing this project, you will have a good understanding of the followin
 Continue solving more projects for advanced CI/CD concepts.
 
 Project: [**GitHub Pages Deployment**](https://roadmap.sh/projects/github-actions-deployment-workflow)
+
+Demo: [**GitHub Pages Deployment**](https://lhzinh.github.io/roadmap.sh-submissions/)
