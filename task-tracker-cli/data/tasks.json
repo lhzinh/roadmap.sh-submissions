@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "description": "Rửa xe",
+        "status": "done",
+        "createdAt": "2026-07-02 23:11:32",
+        "updatedAt": "2026-07-02 23:12:58"
+    },
+    {
+        "id": 3,
+        "description": "Xem đá bóng",
+        "status": "in-progress",
+        "createdAt": "2026-07-02 23:11:54",
+        "updatedAt": "2026-07-02 23:12:49"
+    }
+]
