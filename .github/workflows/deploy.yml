@@ -4,7 +4,7 @@ on:
   push:
     branches: ["github-pages-deployment"]
     paths:
-      - 'index.html'
+      - 'gh-deployment-workflow/**'
 
 permissions:
   contents: read
