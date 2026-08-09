@@ -22,7 +22,7 @@ You are not required to style the website; you are only required to create the s
 
 You can use the following mockup example to create the structure of the website (remember, you are not required to style the website, only focus on the structure that you can style later):
 
-![alt text](image.png)
+![alt text](./image.png)
 
 Again, make sure that your submission includes the following:
 
