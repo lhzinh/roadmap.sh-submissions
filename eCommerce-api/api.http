@@ -1,0 +1,23 @@
+# POST http://localhost:8080/users/signup HTTP/1.1
+# content-type: application/json
+
+# {
+#     "name": "Le Hien Vinh",
+#     "email": "zin.it.dev@gmail.com",
+#     "username": "zindev",
+#     "password": "123"
+# }
+
+###
+POST http://localhost:8080/users/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "zin.it.dev@gmail.com",
+    "password": "123"
+}
+
+###
+GET http://localhost:8080/users/current-user HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ6aW4uaXQuZGV2QGdtYWlsLmNvbSIsImlhdCI6MTc5MDA1NTcxNCwiZXhwIjoxNzkwMDU5MzE0fQ.LUZHE4HoLZZeq-XRqQxrPSrR-sC-12lrmL-9yy-Op9Y

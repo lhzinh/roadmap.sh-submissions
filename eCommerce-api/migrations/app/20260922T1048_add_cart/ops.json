@@ -1,0 +1,326 @@
+[
+  {
+    "id": "table.cart",
+    "label": "Create table \"cart\"",
+    "summary": "Creates table \"cart\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "cart"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"cart\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"cart\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"cart\"",
+        "sql": "CREATE TABLE \"public\".\"cart\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  \"userId\" int4 NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"cart\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"cart\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.cartItem",
+    "label": "Create table \"cartItem\"",
+    "summary": "Creates table \"cartItem\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "cartItem"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"cartItem\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"cartItem\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"cartItem\"",
+        "sql": "CREATE TABLE \"public\".\"cartItem\" (\n  \"cartId\" int4 NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"productId\" int4 NOT NULL,\n  \"quantity\" int4 DEFAULT 1 NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"cartItem\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"cartItem\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.cart.cart_userId_key",
+    "label": "Add unique constraint on \"cart\" (userId)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "cart_userId_key",
+        "table": "cart"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"cart_userId_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "cart_userId_key",
+          "public",
+          "\"public\".\"cart\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"cart_userId_key\"",
+        "sql": "ALTER TABLE \"public\".\"cart\" ADD CONSTRAINT \"cart_userId_key\" UNIQUE (\"userId\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"cart_userId_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "cart_userId_key",
+          "public",
+          "\"public\".\"cart\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.cartItem.cartItem_cartId_idx_79939295",
+    "label": "Create index \"cartItem_cartId_idx_79939295\" on \"cartItem\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "cartItem_cartId_idx_79939295",
+        "table": "cartItem"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"cartItem_cartId_idx_79939295\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"cartItem_cartId_idx_79939295\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"cartItem_cartId_idx_79939295\"",
+        "sql": "CREATE INDEX \"cartItem_cartId_idx_79939295\" ON \"public\".\"cartItem\" (\"cartId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"cartItem_cartId_idx_79939295\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"cartItem_cartId_idx_79939295\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.cartItem.cartItem_productId_idx_5858600a",
+    "label": "Create index \"cartItem_productId_idx_5858600a\" on \"cartItem\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "cartItem_productId_idx_5858600a",
+        "table": "cartItem"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"cartItem_productId_idx_5858600a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"cartItem_productId_idx_5858600a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"cartItem_productId_idx_5858600a\"",
+        "sql": "CREATE INDEX \"cartItem_productId_idx_5858600a\" ON \"public\".\"cartItem\" (\"productId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"cartItem_productId_idx_5858600a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"cartItem_productId_idx_5858600a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.cart.cart_userId_fkey",
+    "label": "Add foreign key \"cart_userId_fkey\" on \"cart\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "cart_userId_fkey",
+        "table": "cart"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"cart_userId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "cart_userId_fkey",
+          "public",
+          "\"public\".\"cart\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"cart_userId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"cart\"\nADD CONSTRAINT \"cart_userId_fkey\"\nFOREIGN KEY (\"userId\")\nREFERENCES \"public\".\"user\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"cart_userId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "cart_userId_fkey",
+          "public",
+          "\"public\".\"cart\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.cartItem.cartItem_cartId_fkey",
+    "label": "Add foreign key \"cartItem_cartId_fkey\" on \"cartItem\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "cartItem_cartId_fkey",
+        "table": "cartItem"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"cartItem_cartId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "cartItem_cartId_fkey",
+          "public",
+          "\"public\".\"cartItem\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"cartItem_cartId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"cartItem\"\nADD CONSTRAINT \"cartItem_cartId_fkey\"\nFOREIGN KEY (\"cartId\")\nREFERENCES \"public\".\"cart\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"cartItem_cartId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "cartItem_cartId_fkey",
+          "public",
+          "\"public\".\"cartItem\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.cartItem.cartItem_productId_fkey",
+    "label": "Add foreign key \"cartItem_productId_fkey\" on \"cartItem\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "cartItem_productId_fkey",
+        "table": "cartItem"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"cartItem_productId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "cartItem_productId_fkey",
+          "public",
+          "\"public\".\"cartItem\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"cartItem_productId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"cartItem\"\nADD CONSTRAINT \"cartItem_productId_fkey\"\nFOREIGN KEY (\"productId\")\nREFERENCES \"public\".\"product\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"cartItem_productId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "cartItem_productId_fkey",
+          "public",
+          "\"public\".\"cartItem\""
+        ]
+      }
+    ]
+  }
+]
