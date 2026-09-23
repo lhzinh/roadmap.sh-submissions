@@ -1,0 +1,135 @@
+{
+    "updatedAt": "2026-09-23T10:43:12.296Z",
+    "createdAt": "2026-09-23T09:20:43.197Z",
+    "id": "3U33mqkcZD8ItRTW",
+    "name": "Welcome Email for New Leads",
+    "description": null,
+    "active": false,
+    "isArchived": false,
+    "nodes": [
+        {
+            "parameters": {
+                "formTitle": "Contact us",
+                "formDescription": "Fill form",
+                "formFields": {
+                    "values": [
+                        {
+                            "fieldLabel": "What is your name?",
+                            "placeholder": "Enter your name"
+                        },
+                        {
+                            "fieldLabel": "Email",
+                            "fieldType": "email",
+                            "placeholder": "Enter your email"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.formTrigger",
+            "typeVersion": 2.6,
+            "position": [-384, -64],
+            "id": "21b8b9f1-e47a-46e8-bb34-2e95c6f08e91",
+            "name": "On form submission",
+            "webhookId": "3837a76b-e2e0-401a-820f-0d32ed68a7f7"
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "bf7e432f-e06c-4769-9d80-df0afcdf6721",
+                            "name": "What is your name?",
+                            "value": "={{ $json.Name }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "fe1994fc-6a45-4680-93be-8ac5a1f7b68c",
+                            "name": "Email",
+                            "value": "={{ $json.Email }}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.5,
+            "position": [-160, -64],
+            "id": "927904e7-d5ae-4f99-8c32-516ebff88d74",
+            "name": "Edit Fields"
+        },
+        {
+            "parameters": {
+                "sendTo": "={{ $json.Email }}",
+                "subject": "=Welcome, {{ $json[\"Name\"] }} for signing up!!",
+                "message": "=<p>Hello {{ $json.Name }},</p>\n</br>\n<p>Thank you for signing up. We are delighted to have you with us!</p>",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [64, -64],
+            "id": "95387e89-2574-42a4-a963-f17af6a53062",
+            "name": "Send a message",
+            "webhookId": "b162f718-89c7-48ad-b733-308026f4462e",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "eveCg6D9DKIz61nO",
+                    "name": "Gmail account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "On form submission": {
+            "main": [[{ "node": "Edit Fields", "type": "main", "index": 0 }]]
+        },
+        "Edit Fields": {
+            "main": [[{ "node": "Send a message", "type": "main", "index": 0 }]]
+        }
+    },
+    "settings": { "executionOrder": "v1", "binaryMode": "separate" },
+    "staticData": null,
+    "meta": { "templateCredsSetupCompleted": true },
+    "nodeGroups": [],
+    "pinData": {
+        "On form submission": [
+            {
+                "json": {
+                    "Name": "vinh",
+                    "Email": "zc@gmail.com",
+                    "submittedAt": "2026-09-23T06:20:42.780-04:00",
+                    "formMode": "test"
+                }
+            }
+        ],
+        "Edit Fields": [{ "json": { "Name": "vinh", "Email": "zc@gmail.com" } }]
+    },
+    "versionId": "94f58efd-ffee-4835-968b-256df291e2b1",
+    "activeVersionId": null,
+    "versionCounter": 71,
+    "triggerCount": 0,
+    "sourceWorkflowId": null,
+    "tags": [],
+    "shared": [
+        {
+            "updatedAt": "2026-09-23T09:20:43.212Z",
+            "createdAt": "2026-09-23T09:20:43.212Z",
+            "role": "workflow:owner",
+            "workflowId": "3U33mqkcZD8ItRTW",
+            "projectId": "G3zTkHXoHzw6EMUI",
+            "project": {
+                "updatedAt": "2026-09-23T09:17:56.452Z",
+                "createdAt": "2026-09-23T09:10:13.448Z",
+                "id": "G3zTkHXoHzw6EMUI",
+                "name": "Lê Vinh <lehienvinh.tk4@gmail.com>",
+                "type": "personal",
+                "icon": null,
+                "description": null,
+                "customTelemetryTags": [],
+                "creatorId": "7309b1c0-b178-4cf6-b23d-1dff5771278d"
+            }
+        }
+    ],
+    "versionMetadata": { "name": null, "description": null }
+}

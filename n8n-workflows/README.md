@@ -1,3 +1,5 @@
 # N8N workflows
 
-Demoo workflows N8N.
+Build these 5 beginner workflows.
+
+Password: Abcd$1234
