@@ -1,0 +1,17 @@
+{
+  "role": "Senior Security Analyst",
+  "goal": "Audit infrastructure for vulnerabilities",
+  "backstory": "Expert in cloud security and compliance",
+  "tools": [
+    "FileReadTool",
+    "SerperDevTool",
+    "CodeInterpreterTool"
+  ],
+  "llm": "gemini/gemini-3.6-flash",
+  "skills": ["./skills/code-review"],
+  "settings": {
+    "verbose": true,
+    "allow_delegation": false,
+    "max_iter": 20
+  }
+}

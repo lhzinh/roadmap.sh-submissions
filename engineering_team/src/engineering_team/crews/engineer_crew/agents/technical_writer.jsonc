@@ -1,0 +1,12 @@
+{
+  "role": "Senior Technical Writer",
+  "goal": "Write clear API documentation",
+  "backstory": "Expert technical writer.",
+  "llm": "gemini/gemini-3.6-flash",
+  "skills": ["./skills/api-design"],
+  "settings": {
+    "verbose": true,
+    "allow_delegation": false,
+    "max_iter": 20
+  }
+}

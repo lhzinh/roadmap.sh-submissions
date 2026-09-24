@@ -1,0 +1,59 @@
+{
+  "name": "Engineer Crew",
+  "agents": [
+    "backend_developer",
+    "devops_engineer",
+    "frontend_developer",
+    "qa_engineer",
+    "security_analyst",
+    "software_architect",
+    "technical_writer"
+  ],
+  "tasks": [
+    {
+      "name": "software_architect_task",
+      "description": "Analyze the project requirements '{project_requirement}', design the overall system architecture, data models, API standards, and select the appropriate tech stack.",
+      "expected_output": "A detailed architectural design document in Markdown format, including system diagrams, API specifications, and module structures.",
+      "agent": "software_architect"
+    },
+    {
+      "name": "backend_task",
+      "description": "Based on the architectural design, build database schemas, develop RESTful/GraphQL APIs, and implement server-side business logic.",
+      "expected_output": "Complete backend source code with robust exception handling, ready for data integration.",
+      "agent": "backend_developer"
+    },
+    {
+      "name": "frontend_task",
+      "description": "Build user interface (UI) components based on the design specifications and integrate them directly with the developed backend APIs.",
+      "expected_output": "Complete frontend source code ensuring responsive design and seamless API interaction.",
+      "agent": "frontend_developer"
+    },
+    {
+      "name": "qa_task",
+      "description": "Perform functional testing across both backend and frontend, identify logical bugs, verify edge cases, and write automated test suites.",
+      "expected_output": "Quality Assurance (QA) Report accompanied by unit and integration test files.",
+      "agent": "qa_engineer"
+    },
+    {
+      "name": "security_task",
+      "description": "Audit all source code and system configurations to detect security vulnerabilities (OWASP Top 10, API key leaks, authorization flaws).",
+      "expected_output": "Security Assessment Report featuring identified vulnerabilities and proposed security fixes.",
+      "agent": "security_analyst"
+    },
+    {
+      "name": "devops_task",
+      "description": "Containerize the application using Docker, configure orchestration (Docker Compose/Kubernetes), and set up automated CI/CD pipelines.",
+      "expected_output": "Dockerfile, docker-compose.yml, and ready-to-deploy CI/CD pipeline configuration files.",
+      "agent": "devops_engineer"
+    },
+    {
+      "name": "technical_writer_task",
+      "description": "Consolidate all architecture documentation, API specifications, environment setup instructions, and compose a comprehensive README.md file for the project.",
+      "expected_output": "Comprehensive README.md file and complete technical documentation formatted in Markdown.",
+      "output_file": "output/README.md",
+      "agent": "technical_writer"
+    }
+  ],
+  "process": "sequential",
+  "verbose": true
+}
